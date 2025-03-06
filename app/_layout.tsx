@@ -1,13 +1,17 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { Stack } from "expo-router";
+import { SWRConfig } from "swr";
 
-import "./global.css";
+import "../global.css";
 
 const RootLayout = () => {
   return (
-    <View>
-      <Text>RootLayout</Text>
-    </View>
+    <SWRConfig>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+    </SWRConfig>
   );
 };
 
