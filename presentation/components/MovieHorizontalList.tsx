@@ -5,7 +5,7 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Movie } from "../../infrastructure/models/movieModel";
 import MoviePoster from "./MoviePoster";
 
@@ -21,6 +21,13 @@ const MovieHorizontalList = ({
   loadMore?: () => void;
 }) => {
   const isLoading = useRef(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      isLoading.current = false;
+    }, 200);
+  }, [movies]);
+
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isLoading.current) return;
 
@@ -32,7 +39,6 @@ const MovieHorizontalList = ({
     if (!isEndReached) return;
 
     isLoading.current = true;
-    console.log("Get next movies");
     loadMore && loadMore();
   };
   return (
@@ -42,7 +48,7 @@ const MovieHorizontalList = ({
       <FlatList
         horizontal
         data={movies}
-        keyExtractor={(item, index) => `${index}`}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         renderItem={({ item: movie }) => (
           <MoviePoster id={movie.id} poster={movie.poster} smallPoster />
         )}
