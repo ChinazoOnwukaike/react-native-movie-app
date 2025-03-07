@@ -1,9 +1,7 @@
 import { Fetcher } from "swr";
 
-const getMovies = (async (urlEnd?: string) => {
-  const url = `${process.env.EXPO_PUBLIC_MOVIE_DB_URL}${
-    urlEnd ? `/${`${urlEnd}`}` : ""
-  }?language=en-US&page=1`;
+const getMovies = (async (urlEnd: string) => {
+  const url = `${process.env.EXPO_PUBLIC_MOVIE_DB_URL}${urlEnd}`;
   const options = {
     method: "GET",
     headers: {

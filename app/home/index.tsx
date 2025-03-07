@@ -1,26 +1,30 @@
 import useMovies from "../../presentation/hooks/useMovies";
-import mapMovies from "../../infrastructure/mappers/movie.mapper";
 import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MainSlideshow from "@/presentation/components/mainSlideshow";
-import { MoviesResponse } from "@/infrastructure/models/moviesResponse";
 import MovieHorizontalList from "@/presentation/components/MovieHorizontalList";
 
 const Home = () => {
-  const { moviePayload, isLoading } = useMovies<MoviesResponse>("now_playing");
-  const movies = moviePayload?.results.map(mapMovies);
+  // const limit = {
+  //   movie: 10,
+  //   popular: 10,
+  //   topRated: 10,
+  //   upcoming: 10,
+  // };
 
-  const { moviePayload: popularMoviesPayload } =
-    useMovies<MoviesResponse>("popular");
-  const popularMovies = popularMoviesPayload?.results.map(mapMovies);
+  const { movies, isLoading } = useMovies(`/now_playing?language=en-US`);
 
-  const { moviePayload: topRatedMoviesPayload } =
-    useMovies<MoviesResponse>("top_rated");
-  const topRatedMovies = topRatedMoviesPayload?.results.map(mapMovies);
+  const { movies: popularMovies, loadMore: popularLoadMore } = useMovies(
+    `/popular?language=en-US`
+  );
 
-  const { moviePayload: upcomingMoviesPayload } =
-    useMovies<MoviesResponse>("upcoming");
-  const upcomingMovies = upcomingMoviesPayload?.results.map(mapMovies);
+  const { movies: topRatedMovies, loadMore: topRatedLoadMore } = useMovies(
+    `/top_rated?language=en-US`
+  );
+
+  const { movies: upcomingMovies, loadMore: upcomingLoadMore } = useMovies(
+    `/upcoming?language=en-US`
+  );
 
   const safeArea = useSafeAreaInsets();
 
@@ -39,16 +43,19 @@ const Home = () => {
           movies={popularMovies ?? []}
           title="Most Popular"
           className="mb-5"
+          loadMore={popularLoadMore}
         />
         <MovieHorizontalList
           movies={topRatedMovies ?? []}
           title="Top Rated"
           className="mb-5"
+          loadMore={topRatedLoadMore}
         />
         <MovieHorizontalList
           movies={upcomingMovies ?? []}
           title="Upcoming Movies"
           className="mb-5"
+          loadMore={upcomingLoadMore}
         />
         {/* <Text>{JSON.stringify(movies)}</Text> */}
       </View>
