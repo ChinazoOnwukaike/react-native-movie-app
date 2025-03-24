@@ -2,16 +2,19 @@ import { Stack } from "expo-router";
 import { SWRConfig } from "swr";
 
 import "../global.css";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const RootLayout = () => {
   return (
-    <SWRConfig>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
-    </SWRConfig>
+    <GestureHandlerRootView>
+      <SWRConfig>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+      </SWRConfig>
+    </GestureHandlerRootView>
   );
 };
 
