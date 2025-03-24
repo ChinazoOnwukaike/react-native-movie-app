@@ -3,7 +3,7 @@ import { MovieDetailsResponse } from "../models/movieDetailsResponse";
 
 const mapMovieDetails = (movie?: MovieDetailsResponse): MovieDetails => {
   if (!movie) {
-    throw "No movie found";
+    throw new Error("No movie found");
   }
   return {
     id: movie.id,

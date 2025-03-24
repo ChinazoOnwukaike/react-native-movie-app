@@ -17,9 +17,9 @@ const useGetMovieDetails = (id: string) => {
     throw new Error(error.message);
   }
 
-  const movie = mapMovieDetails(data);
+  const movie = data && mapMovieDetails(data);
 
-  return { movie, isLoading, error };
+  return { movie, isLoading };
 };
 
 export default useGetMovieDetails;

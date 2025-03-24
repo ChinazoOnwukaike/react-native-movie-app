@@ -3,7 +3,6 @@ import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MainSlideshow from "@/presentation/components/mainSlideshow";
 import MovieHorizontalList from "@/presentation/components/MovieHorizontalList";
-
 const Home = () => {
   // const limit = {
   //   movie: 10,
