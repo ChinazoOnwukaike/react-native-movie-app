@@ -4,7 +4,7 @@ import { MovieCastResponse } from "../../infrastructure/models/movieCastResponse
 import mapCast from "../../infrastructure/mappers/moveCast.mapper";
 
 const useGetMovieCast = (id: string) => {
-  const { data, error, isLoading } = useSWR<MovieCastResponse>(
+  const { data, error } = useSWR<MovieCastResponse>(
     `/${id}/credits`,
     getMovies,
     {
@@ -19,7 +19,7 @@ const useGetMovieCast = (id: string) => {
 
   const cast = data?.cast.map(mapCast);
 
-  return { cast, isLoading };
+  return { cast };
 };
 
 export default useGetMovieCast;
